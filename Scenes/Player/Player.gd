@@ -1,8 +1,8 @@
 extends CharacterBody2D
 
 
-const GRAVITY = 900
-const JUMP_FORCE = 600
+const GRAVITY = 1200
+const JUMP_FORCE = 900
 const SPEED = 400
 
 var screen_size: Vector2
@@ -12,19 +12,26 @@ var is_touching := false
 var touch_index := -1  # To track which finger is being used
 
 @onready var sprite: Sprite2D = %Sprite
+@onready var collision_shape_2d: CollisionShape2D = %CollisionShape2D
 
 
 func _ready() -> void:
 	var left_sprite := sprite.duplicate() as Sprite2D
+	var left_collision_shape := collision_shape_2d.duplicate() as CollisionShape2D
 	var right_sprite := sprite.duplicate() as Sprite2D
+	var right_collision_shape := collision_shape_2d.duplicate() as CollisionShape2D
 	
 	screen_size = get_viewport_rect().size
 	
 	left_sprite.global_position.x = -screen_size.x
+	left_collision_shape.global_position.x = -screen_size.x
 	right_sprite.global_position.x = screen_size.x
+	right_collision_shape.global_position.x = screen_size.x
 	
 	add_child(left_sprite)
+	add_child(left_collision_shape)
 	add_child(right_sprite)
+	add_child(right_collision_shape)
 
 
 func _physics_process(delta: float) -> void:

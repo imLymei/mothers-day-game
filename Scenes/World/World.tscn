@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://2br3kn32w0pd"]
+[gd_scene load_steps=5 format=3 uid="uid://2br3kn32w0pd"]
 
 [ext_resource type="PackedScene" uid="uid://dwkl5axyrlrce" path="res://Scenes/Player/Player.tscn" id="1_0nbjp"]
 [ext_resource type="Script" uid="uid://cqwxdx7ix6chh" path="res://Scenes/World/World.gd" id="1_xf6vi"]
+[ext_resource type="PackedScene" uid="uid://be031itnglunt" path="res://Scenes/Platform/StaticPlatform/StaticPlataform.tscn" id="3_ouhkt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0nbjp"]
 size = Vector2(612, 20)
@@ -20,3 +21,6 @@ debug_color = Color(0.986535, 0, 0.322584, 0.42)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 unique_name_in_owner = true
+
+[node name="StaticPlataform" parent="." instance=ExtResource("3_ouhkt")]
+position = Vector2(209, -260)
