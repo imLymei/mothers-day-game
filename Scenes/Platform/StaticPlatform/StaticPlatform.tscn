@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://be031itnglunt"]
 
-[ext_resource type="Script" uid="uid://dg7ny5tvqpvvw" path="res://Scenes/Platform/StaticPlatform/StaticPlataform.gd" id="1_1cobi"]
+[ext_resource type="Script" uid="uid://dg7ny5tvqpvvw" path="res://Scenes/Platform/StaticPlatform/StaticPlatform.gd" id="1_1cobi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pl35g"]
 
@@ -13,3 +13,4 @@ shape = SubResource("RectangleShape2D_pl35g")
 one_way_collision = true
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
+unique_name_in_owner = true

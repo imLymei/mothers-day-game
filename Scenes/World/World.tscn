@@ -1,26 +1,136 @@
-[gd_scene load_steps=5 format=3 uid="uid://2br3kn32w0pd"]
+[gd_scene load_steps=6 format=3 uid="uid://2br3kn32w0pd"]
 
 [ext_resource type="PackedScene" uid="uid://dwkl5axyrlrce" path="res://Scenes/Player/Player.tscn" id="1_0nbjp"]
 [ext_resource type="Script" uid="uid://cqwxdx7ix6chh" path="res://Scenes/World/World.gd" id="1_xf6vi"]
-[ext_resource type="PackedScene" uid="uid://be031itnglunt" path="res://Scenes/Platform/StaticPlatform/StaticPlataform.tscn" id="3_ouhkt"]
+[ext_resource type="PackedScene" uid="uid://be031itnglunt" path="res://Scenes/Platform/StaticPlatform/StaticPlatform.tscn" id="3_ouhkt"]
+[ext_resource type="PackedScene" uid="uid://cj5k2jul6kebx" path="res://Scenes/Platform/MovingPlatform/MovingPlatform.tscn" id="4_5jr8x"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0nbjp"]
 size = Vector2(612, 20)
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_xf6vi")
+static_platform_scene = ExtResource("3_ouhkt")
+moving_platform_scene = ExtResource("4_5jr8x")
 
 [node name="Player" parent="." instance=ExtResource("1_0nbjp")]
+unique_name_in_owner = true
 position = Vector2(5, -98)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="Floor" type="StaticBody2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
 shape = SubResource("RectangleShape2D_0nbjp")
 debug_color = Color(0.986535, 0, 0.322584, 0.42)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 unique_name_in_owner = true
+process_callback = 0
+position_smoothing_enabled = true
+position_smoothing_speed = 2.0
 
-[node name="StaticPlataform" parent="." instance=ExtResource("3_ouhkt")]
-position = Vector2(209, -260)
+[node name="Platforms" type="Node" parent="."]
+unique_name_in_owner = true
+
+[node name="DeathArea" type="Marker2D" parent="."]
+unique_name_in_owner = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ScreenContainer" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HeaderContainer" type="PanelContainer" parent="CanvasLayer/ScreenContainer"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/ScreenContainer/HeaderContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/ScreenContainer/HeaderContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="ScoreLabel" type="Label" parent="CanvasLayer/ScreenContainer/HeaderContainer/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 32
+text = "[SCORE]"
+
+[node name="HighScoreLabel" type="Label" parent="CanvasLayer/ScreenContainer/HeaderContainer/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.928218, 0.848255, 7.70092e-07, 1)
+text = "[HIGH_SCORE]"
+vertical_alignment = 2
+
+[node name="GameOverScreen" type="CenterContainer" parent="CanvasLayer/ScreenContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/ScreenContainer/GameOverScreen"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/ScreenContainer/GameOverScreen/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/ScreenContainer/GameOverScreen/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="NewHighScore" type="VBoxContainer" parent="CanvasLayer/ScreenContainer/GameOverScreen/PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="NewRecordText" type="RichTextLabel" parent="CanvasLayer/ScreenContainer/GameOverScreen/PanelContainer/MarginContainer/VBoxContainer/NewHighScore"]
+clip_contents = false
+layout_mode = 2
+theme_override_colors/default_color = Color(0.922312, 0.863542, 0, 1)
+theme_override_colors/font_outline_color = Color(0.527963, 0.562775, 5.77569e-07, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/normal_font_size = 48
+bbcode_enabled = true
+text = "[wave amp=100.0 freq=10.0 connected=1]NOVO RECORDE"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="NewHighScoreLabel" type="Label" parent="CanvasLayer/ScreenContainer/GameOverScreen/PanelContainer/MarginContainer/VBoxContainer/NewHighScore"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "[SCORE]"
+horizontal_alignment = 1
+
+[node name="RestartButton" type="Button" parent="CanvasLayer/ScreenContainer/GameOverScreen/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Jogar Novamente"
+
+[connection signal="pressed" from="CanvasLayer/ScreenContainer/GameOverScreen/PanelContainer/MarginContainer/VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]

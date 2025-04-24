@@ -1,3 +1,4 @@
+class_name Player
 extends CharacterBody2D
 
 
@@ -9,7 +10,8 @@ var screen_size: Vector2
 var current_direction := 0
 
 var is_touching := false
-var touch_index := -1  # To track which finger is being used
+var touch_index := -1
+var can_move := true
 
 @onready var sprite: Sprite2D = %Sprite
 @onready var collision_shape_2d: CollisionShape2D = %CollisionShape2D
@@ -35,11 +37,14 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if not is_on_floor():
-		velocity.y += GRAVITY * delta
-	else: velocity.y = -JUMP_FORCE
-	
-	velocity.x = SPEED * current_direction
+	if can_move:
+		if not is_on_floor():
+			velocity.y += GRAVITY * delta
+		else: velocity.y = -JUMP_FORCE
+		
+		velocity.x = SPEED * current_direction
+	else:
+		velocity.x = lerp(velocity.x, 0.0, 12 * delta)
 	
 	move_and_slide()
 	

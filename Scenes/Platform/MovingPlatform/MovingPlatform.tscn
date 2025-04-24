@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cj5k2jul6kebx"]
+
+[ext_resource type="Script" uid="uid://coc5aac1v7ttm" path="res://Scenes/Platform/MovingPlatform/MovingPlatform.gd" id="1_k2v1r"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pl35g"]
+
+[node name="MovingPlatform" type="AnimatableBody2D"]
+collision_mask = 0
+script = ExtResource("1_k2v1r")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+unique_name_in_owner = true
+shape = SubResource("RectangleShape2D_pl35g")
+one_way_collision = true
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+unique_name_in_owner = true
