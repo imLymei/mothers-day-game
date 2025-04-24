@@ -1,52 +1,14 @@
-[gd_scene load_steps=12 format=3 uid="uid://2br3kn32w0pd"]
+[gd_scene load_steps=8 format=3 uid="uid://2br3kn32w0pd"]
 
 [ext_resource type="PackedScene" uid="uid://dwkl5axyrlrce" path="res://Scenes/Player/Player.tscn" id="1_0nbjp"]
 [ext_resource type="Script" uid="uid://cqwxdx7ix6chh" path="res://Scenes/World/World.gd" id="1_xf6vi"]
 [ext_resource type="PackedScene" uid="uid://be031itnglunt" path="res://Scenes/Platform/StaticPlatform/StaticPlatform.tscn" id="3_ouhkt"]
 [ext_resource type="PackedScene" uid="uid://cj5k2jul6kebx" path="res://Scenes/Platform/MovingPlatform/MovingPlatform.tscn" id="4_5jr8x"]
 [ext_resource type="PackedScene" uid="uid://b7wuo1sprhdiu" path="res://Scenes/Platform/GoalPlatform/GoalPlatform.tscn" id="4_27jhl"]
+[ext_resource type="Theme" uid="uid://bxy7t0fosymcb" path="res://Resources/Style/ButtonStyle.tres" id="6_hveh7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0nbjp"]
 size = Vector2(612, 20)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5jr8x"]
-content_margin_left = 12.0
-content_margin_top = 12.0
-content_margin_right = 12.0
-content_margin_bottom = 12.0
-bg_color = Color(1.34766e-06, 0.651181, 0.887928, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(1, 1, 1, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_27jhl"]
-content_margin_left = 12.0
-content_margin_top = 12.0
-content_margin_right = 12.0
-content_margin_bottom = 12.0
-bg_color = Color(0, 0.495769, 0.810998, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hveh7"]
-content_margin_left = 12.0
-content_margin_top = 12.0
-content_margin_right = 12.0
-content_margin_bottom = 12.0
-bg_color = Color(1.34766e-06, 0.651181, 0.887928, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_87yka"]
-content_margin_left = 12.0
-content_margin_top = 12.0
-content_margin_right = 12.0
-content_margin_bottom = 12.0
-bg_color = Color(0, 0.391045, 0.871367, 1)
-
-[sub_resource type="Theme" id="Theme_kjd5s"]
-Button/styles/focus = SubResource("StyleBoxFlat_5jr8x")
-Button/styles/hover = SubResource("StyleBoxFlat_27jhl")
-Button/styles/normal = SubResource("StyleBoxFlat_hveh7")
-Button/styles/pressed = SubResource("StyleBoxFlat_87yka")
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_xf6vi")
@@ -154,7 +116,7 @@ theme_override_colors/font_outline_color = Color(0.527963, 0.562775, 5.77569e-07
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/normal_font_size = 48
 bbcode_enabled = true
-text = "[wave amp=100.0 freq=10.0 connected=1]NOVO RECORDE"
+text = "[wave amp=50.0 freq=5.0 connected=1]NOVO RECORDE"
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
@@ -170,8 +132,57 @@ horizontal_alignment = 1
 
 [node name="RestartButton" type="Button" parent="CanvasLayer/ScreenContainer/GameOverScreen/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme = SubResource("Theme_kjd5s")
+theme = ExtResource("6_hveh7")
+theme_override_font_sizes/font_size = 24
+text = "Tentar Novamente"
+
+[node name="WinScreen" type="CenterContainer" parent="CanvasLayer/ScreenContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/ScreenContainer/WinScreen"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/ScreenContainer/WinScreen/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/ScreenContainer/WinScreen/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/ScreenContainer/WinScreen/PanelContainer/MarginContainer/VBoxContainer"]
+clip_contents = false
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/normal_font_size = 48
+bbcode_enabled = true
+text = "[rainbow freq=0.2 sat=0.5 val=0.8 speed=1.0][wave amp=50.0 freq=5.0 connected=1]FILHO RESGATADO!"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/ScreenContainer/WinScreen/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Você é a melhor mãe do mundo!"
+horizontal_alignment = 1
+
+[node name="PlayAgainButton" type="Button" parent="CanvasLayer/ScreenContainer/WinScreen/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("6_hveh7")
 theme_override_font_sizes/font_size = 24
 text = "Jogar Novamente"
 
 [connection signal="pressed" from="CanvasLayer/ScreenContainer/GameOverScreen/PanelContainer/MarginContainer/VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/ScreenContainer/WinScreen/PanelContainer/MarginContainer/VBoxContainer/PlayAgainButton" to="." method="_on_play_again_button_pressed"]

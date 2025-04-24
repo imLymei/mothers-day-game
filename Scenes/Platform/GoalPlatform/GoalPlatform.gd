@@ -6,6 +6,8 @@ signal goal_reached
 
 @onready var static_plataform: StaticPlatform = %StaticPlataform
 @onready var goal_collision_shape: CollisionShape2D = $GoalArea/GoalCollisionShape
+@onready var confetti_particles_right: CPUParticles2D = %ConfettiParticlesRight
+@onready var confetti_particles_left: CPUParticles2D = %ConfettiParticlesLeft
 
 
 func _ready() -> void:
@@ -18,3 +20,5 @@ func _ready() -> void:
 
 func _on_goal_area_body_entered(body: Node2D) -> void:
 	goal_reached.emit()
+	confetti_particles_left.emitting = true
+	confetti_particles_right.emitting = true

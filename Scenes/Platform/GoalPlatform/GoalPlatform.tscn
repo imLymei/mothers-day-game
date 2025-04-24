@@ -1,12 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://b7wuo1sprhdiu"]
+[gd_scene load_steps=7 format=3 uid="uid://b7wuo1sprhdiu"]
 
 [ext_resource type="PackedScene" uid="uid://be031itnglunt" path="res://Scenes/Platform/StaticPlatform/StaticPlatform.tscn" id="1_lwemb"]
 [ext_resource type="Script" uid="uid://bqepujtt4044d" path="res://Scenes/Platform/GoalPlatform/GoalPlatform.gd" id="1_no5ak"]
+[ext_resource type="Texture2D" uid="uid://d4l61rcs1835h" path="res://Resources/confetti.png" id="3_jqfcs"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_no5ak"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jqfcs"]
 size = Vector2(16, 56)
+
+[sub_resource type="Gradient" id="Gradient_no5ak"]
+colors = PackedColorArray(0.880972, 0.836606, 0, 1, 1, 0, 1, 1)
 
 [node name="GoalPlatform" type="Node2D"]
 script = ExtResource("1_no5ak")
@@ -23,6 +27,53 @@ shape = SubResource("RectangleShape2D_no5ak")
 position = Vector2(0, -36)
 shape = SubResource("RectangleShape2D_jqfcs")
 debug_color = Color(2.23808e-06, 0.648162, 0.189683, 0.42)
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="ConfettiParticlesLeft" type="CPUParticles2D" parent="Node2D"]
+unique_name_in_owner = true
+z_index = 2
+position = Vector2(-64, 0)
+emitting = false
+amount = 50
+texture = ExtResource("3_jqfcs")
+lifetime = 5.0
+explosiveness = 0.7
+randomness = 0.2
+emission_shape = 3
+emission_rect_extents = Vector2(100, 1)
+direction = Vector2(0, -1)
+gravity = Vector2(0, 490)
+initial_velocity_min = 300.0
+initial_velocity_max = 500.0
+angular_velocity_min = 200.0
+angular_velocity_max = 720.0
+radial_accel_max = 4.85
+scale_amount_min = 0.2
+scale_amount_max = 0.3
+color_ramp = SubResource("Gradient_no5ak")
+
+[node name="ConfettiParticlesRight" type="CPUParticles2D" parent="Node2D"]
+unique_name_in_owner = true
+z_index = 2
+position = Vector2(64, 0)
+emitting = false
+amount = 50
+texture = ExtResource("3_jqfcs")
+lifetime = 5.0
+explosiveness = 0.7
+lifetime_randomness = 0.2
+emission_shape = 3
+emission_rect_extents = Vector2(100, 1)
+direction = Vector2(0, -1)
+gravity = Vector2(0, 490)
+initial_velocity_min = 100.0
+initial_velocity_max = 1000.0
+angular_velocity_min = 200.0
+angular_velocity_max = 720.0
+scale_amount_min = 0.2
+scale_amount_max = 0.3
+color_ramp = SubResource("Gradient_no5ak")
 
 [connection signal="body_entered" from="GoalArea" to="." method="_on_goal_area_body_entered"]
 

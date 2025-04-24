@@ -3,7 +3,7 @@ extends Node2D
 
 const PLATFORM_SPACING = 300
 const MOVING_PLATFORM_SPAWN_RATE = 0.1
-const GOAL_PLATFORMS_DISTANCE = 10
+const GOAL_PLATFORMS_DISTANCE = 1_000
 
 var best_score = 0
 var actual_score = 0
@@ -30,6 +30,7 @@ var camera_bottom :
 @onready var death_area: Marker2D = %DeathArea
 
 # UI
+@onready var win_screen: CenterContainer = %WinScreen
 @onready var game_over_screen: CenterContainer = %GameOverScreen
 @onready var new_high_score: VBoxContainer = %NewHighScore
 @onready var new_high_score_label: Label = %NewHighScoreLabel
@@ -125,12 +126,14 @@ func die() -> void:
 func restart() -> void:
 	game_over_screen.hide()
 	new_high_score.hide()
+	win_screen.hide()
 	camera_2d.position_smoothing_speed = 5
 	camera_2d.limit_smoothed = false
 	
 	actual_score = 0
 	is_game_running = true
 	player.can_move = true
+	player.global_position = Vector2(0, -10)
 	
 	generate_platforms()
 
@@ -143,3 +146,21 @@ func _on_goal_reached() -> void:
 	player.can_move = false
 	camera_2d.limit_smoothed = true
 	camera_2d.limit_bottom = goal_platform.global_position.y
+	win_screen.show()
+
+
+func _on_play_again_button_pressed() -> void:
+	total_platforms = 0
+	new_high_score_label.text = "%d" % [best_score]
+	
+	camera_2d.limit_bottom = 0
+	camera_2d.global_position.y = 0
+	camera_2d.position_smoothing_speed = 10
+	is_game_running = false
+	player.can_move = false
+	
+	last_platform_height = 0
+	
+	for child in platforms.get_children():
+		platforms.remove_child(child)
+	restart()
