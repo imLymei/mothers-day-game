@@ -3,9 +3,8 @@ extends Node2D
 
 const PLATFORM_SPACING = 300
 const MOVING_PLATFORM_SPAWN_RATE = 0.1
-const GOAL_PLATFORMS_DISTANCE = 1_000
+var GOAL_PLATFORMS_DISTANCE = randi_range(100, 500)
 
-var best_score = 0
 var actual_score = 0
 var last_platform_height = 0
 var screen_size: Vector2
@@ -32,14 +31,15 @@ var camera_bottom :
 # UI
 @onready var win_screen: CenterContainer = %WinScreen
 @onready var game_over_screen: CenterContainer = %GameOverScreen
-@onready var new_high_score: VBoxContainer = %NewHighScore
-@onready var new_high_score_label: Label = %NewHighScoreLabel
+@onready var final_score_label: Label = %FinalScoreLabel
 
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
 	
 	camera_2d.limit_bottom = 0
+	
+	high_score_label.text = "/ %d" % [(GOAL_PLATFORMS_DISTANCE + 1) * PLATFORM_SPACING]
 	
 	generate_platforms()
 
@@ -58,10 +58,6 @@ func _process(delta: float) -> void:
 		for platform: Node2D in platforms.get_children():
 			if platform.global_position.y > camera_bottom + PLATFORM_SPACING:
 				platforms.remove_child(platform)
-	
-	if actual_score > best_score:
-		best_score = actual_score
-		high_score_label.text = "%d" % [best_score]
 	
 	if is_game_running and last_platform_height - abs(player.global_position.y) < screen_size.y:
 		add_platform()
@@ -107,9 +103,9 @@ func add_platform() -> void:
 
 func die() -> void:
 	game_over_screen.show()
-	new_high_score.show()
+	
+	final_score_label.text = "%d" % [actual_score]
 	total_platforms = 0
-	new_high_score_label.text = "%d" % [best_score]
 	
 	camera_2d.global_position.y = 0
 	camera_2d.position_smoothing_speed = 10
@@ -121,11 +117,11 @@ func die() -> void:
 	for child in platforms.get_children():
 		platforms.remove_child(child)
 	
+	
 
 
 func restart() -> void:
 	game_over_screen.hide()
-	new_high_score.hide()
 	win_screen.hide()
 	camera_2d.position_smoothing_speed = 5
 	camera_2d.limit_smoothed = false
@@ -151,7 +147,6 @@ func _on_goal_reached() -> void:
 
 func _on_play_again_button_pressed() -> void:
 	total_platforms = 0
-	new_high_score_label.text = "%d" % [best_score]
 	
 	camera_2d.limit_bottom = 0
 	camera_2d.global_position.y = 0

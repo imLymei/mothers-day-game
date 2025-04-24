@@ -103,27 +103,25 @@ layout_mode = 2
 theme_override_constants/separation = 32
 
 [node name="NewHighScore" type="VBoxContainer" parent="CanvasLayer/ScreenContainer/GameOverScreen/PanelContainer/MarginContainer/VBoxContainer"]
-unique_name_in_owner = true
-visible = false
 layout_mode = 2
 theme_override_constants/separation = 12
 
 [node name="NewRecordText" type="RichTextLabel" parent="CanvasLayer/ScreenContainer/GameOverScreen/PanelContainer/MarginContainer/VBoxContainer/NewHighScore"]
 clip_contents = false
 layout_mode = 2
-theme_override_colors/default_color = Color(0.922312, 0.863542, 0, 1)
-theme_override_colors/font_outline_color = Color(0.527963, 0.562775, 5.77569e-07, 1)
+theme_override_colors/default_color = Color(0.775063, 0.775063, 0.775063, 1)
+theme_override_colors/font_outline_color = Color(0.439049, 0.439049, 0.439049, 1)
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/normal_font_size = 48
 bbcode_enabled = true
-text = "[wave amp=50.0 freq=5.0 connected=1]NOVO RECORDE"
+text = "[tornado radius=10.0 freq=1.0 connected=1]Quase la..."
 fit_content = true
 scroll_active = false
 autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="NewHighScoreLabel" type="Label" parent="CanvasLayer/ScreenContainer/GameOverScreen/PanelContainer/MarginContainer/VBoxContainer/NewHighScore"]
+[node name="FinalScoreLabel" type="Label" parent="CanvasLayer/ScreenContainer/GameOverScreen/PanelContainer/MarginContainer/VBoxContainer/NewHighScore"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
