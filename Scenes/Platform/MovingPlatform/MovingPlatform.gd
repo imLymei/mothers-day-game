@@ -2,8 +2,8 @@ class_name MovingPlatform
 extends AnimatableBody2D
 
 
-var width := 200
-var height := 20
+var width := 100
+var height := 10
 
 var velocity := 5
 var velocity_margin := randf_range(0,1)

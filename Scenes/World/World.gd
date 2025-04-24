@@ -3,6 +3,7 @@ extends Node2D
 
 const PLATFORM_SPACING = 300
 const MOVING_PLATFORM_SPAWN_RATE = 0.1
+const GOAL_PLATFORMS_DISTANCE = 10
 
 var best_score = 0
 var actual_score = 0
@@ -10,6 +11,8 @@ var last_platform_height = 0
 var screen_size: Vector2
 
 var is_game_running := true
+var total_platforms := 0
+var goal_platform: GoalPlatform
 
 var camera_bottom :
 	get():
@@ -17,6 +20,7 @@ var camera_bottom :
 
 @export var static_platform_scene: PackedScene
 @export var moving_platform_scene: PackedScene
+@export var goal_platform_scene: PackedScene
 
 @onready var camera_2d: Camera2D = %Camera2D
 @onready var player: Player = %Player
@@ -62,15 +66,31 @@ func _process(delta: float) -> void:
 		add_platform()
 
 
-func generate_platforms():
+func generate_platforms() -> void:
 	var height_goal = player.global_position.y + (screen_size.y * 1.5)
 	
 	while last_platform_height <= height_goal:
 		add_platform()
 
 
-func add_platform():
+func add_platform() -> void:
+	if total_platforms > GOAL_PLATFORMS_DISTANCE:
+		return
+	
 	last_platform_height += PLATFORM_SPACING
+	
+	if total_platforms == GOAL_PLATFORMS_DISTANCE:
+		total_platforms += 1
+		
+		goal_platform = goal_platform_scene.instantiate() as GoalPlatform
+		
+		goal_platform.global_position.y = -last_platform_height
+		goal_platform.goal_reached.connect(_on_goal_reached)
+		platforms.add_child(goal_platform)
+		return
+		
+	total_platforms += 1
+	
 	var platform_type := randi_range(0, 1)
 	var platform_scene := static_platform_scene if platform_type == 0 else moving_platform_scene
 	
@@ -84,12 +104,14 @@ func add_platform():
 	platforms.add_child(platform)
 
 
-func die():
+func die() -> void:
 	game_over_screen.show()
 	new_high_score.show()
+	total_platforms = 0
 	new_high_score_label.text = "%d" % [best_score]
 	
 	camera_2d.global_position.y = 0
+	camera_2d.position_smoothing_speed = 10
 	is_game_running = false
 	player.can_move = false
 	
@@ -100,9 +122,11 @@ func die():
 	
 
 
-func restart():
+func restart() -> void:
 	game_over_screen.hide()
 	new_high_score.hide()
+	camera_2d.position_smoothing_speed = 5
+	camera_2d.limit_smoothed = false
 	
 	actual_score = 0
 	is_game_running = true
@@ -113,3 +137,9 @@ func restart():
 
 func _on_restart_button_pressed() -> void:
 	restart()
+
+
+func _on_goal_reached() -> void:
+	player.can_move = false
+	camera_2d.limit_smoothed = true
+	camera_2d.limit_bottom = goal_platform.global_position.y

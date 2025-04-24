@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://b7wuo1sprhdiu"]
+
+[ext_resource type="PackedScene" uid="uid://be031itnglunt" path="res://Scenes/Platform/StaticPlatform/StaticPlatform.tscn" id="1_lwemb"]
+[ext_resource type="Script" uid="uid://bqepujtt4044d" path="res://Scenes/Platform/GoalPlatform/GoalPlatform.gd" id="1_no5ak"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_no5ak"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jqfcs"]
+size = Vector2(16, 56)
+
+[node name="GoalPlatform" type="Node2D"]
+script = ExtResource("1_no5ak")
+
+[node name="StaticPlataform" parent="." instance=ExtResource("1_lwemb")]
+unique_name_in_owner = true
+
+[node name="CollisionShape2D" parent="StaticPlataform" index="0"]
+shape = SubResource("RectangleShape2D_no5ak")
+
+[node name="GoalArea" type="Area2D" parent="."]
+
+[node name="GoalCollisionShape" type="CollisionShape2D" parent="GoalArea"]
+position = Vector2(0, -36)
+shape = SubResource("RectangleShape2D_jqfcs")
+debug_color = Color(2.23808e-06, 0.648162, 0.189683, 0.42)
+
+[connection signal="body_entered" from="GoalArea" to="." method="_on_goal_area_body_entered"]
+
+[editable path="StaticPlataform"]

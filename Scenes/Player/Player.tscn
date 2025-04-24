@@ -4,15 +4,29 @@
 [ext_resource type="Texture2D" uid="uid://cd3ipddpeq2o7" path="res://Resources/icon.svg" id="1_s0eop"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s0eop"]
-size = Vector2(128, 128)
+size = Vector2(75, 75)
 
 [node name="Player" type="CharacterBody2D"]
 z_index = 1
 script = ExtResource("1_ft8w5")
 
-[node name="Sprite" type="Sprite2D" parent="."]
+[node name="Sprite" type="Node2D" parent="."]
 unique_name_in_owner = true
+
+[node name="Texture" type="TextureRect" parent="Sprite"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -37.5
+offset_top = -37.5
+offset_right = 37.5
+offset_bottom = 37.5
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("1_s0eop")
+expand_mode = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 unique_name_in_owner = true

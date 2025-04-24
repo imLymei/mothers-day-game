@@ -2,8 +2,8 @@ class_name Player
 extends CharacterBody2D
 
 
-const GRAVITY = 1200
-const JUMP_FORCE = 900
+const GRAVITY = 1500
+const JUMP_FORCE = 1000
 const SPEED = 400
 
 var screen_size: Vector2
@@ -13,21 +13,21 @@ var is_touching := false
 var touch_index := -1
 var can_move := true
 
-@onready var sprite: Sprite2D = %Sprite
+@onready var sprite: Node2D = %Sprite
 @onready var collision_shape_2d: CollisionShape2D = %CollisionShape2D
 
 
 func _ready() -> void:
-	var left_sprite := sprite.duplicate() as Sprite2D
+	var left_sprite := sprite.duplicate() as Node2D
 	var left_collision_shape := collision_shape_2d.duplicate() as CollisionShape2D
-	var right_sprite := sprite.duplicate() as Sprite2D
+	var right_sprite := sprite.duplicate() as Node2D
 	var right_collision_shape := collision_shape_2d.duplicate() as CollisionShape2D
 	
 	screen_size = get_viewport_rect().size
 	
-	left_sprite.global_position.x = -screen_size.x
+	left_sprite.global_position.x = -screen_size.x 
 	left_collision_shape.global_position.x = -screen_size.x
-	right_sprite.global_position.x = screen_size.x
+	right_sprite.global_position.x = screen_size.x 
 	right_collision_shape.global_position.x = screen_size.x
 	
 	add_child(left_sprite)
@@ -37,11 +37,12 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if can_move:
-		if not is_on_floor():
-			velocity.y += GRAVITY * delta
-		else: velocity.y = -JUMP_FORCE
+	if not is_on_floor():
+		velocity.y += GRAVITY * delta
+	elif can_move: 
+		velocity.y = -JUMP_FORCE
 		
+	if can_move:
 		velocity.x = SPEED * current_direction
 	else:
 		velocity.x = lerp(velocity.x, 0.0, 12 * delta)
