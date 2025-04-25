@@ -13,6 +13,9 @@ var is_game_running := true
 var total_platforms := 0
 var goal_platform: GoalPlatform
 
+var goal_score:
+	get():
+		return (GOAL_PLATFORMS_DISTANCE + 1) * PLATFORM_SPACING
 var camera_bottom :
 	get():
 		return camera_2d.global_position.y + (screen_size.y / 2)
@@ -41,17 +44,13 @@ func _ready() -> void:
 	
 	camera_2d.limit_bottom = 0
 	
-	high_score_label.text = "/ %d" % [(GOAL_PLATFORMS_DISTANCE + 1) * PLATFORM_SPACING]
+	high_score_label.text = "/ %d" % [goal_score]
 	
 	generate_platforms()
 
 
 func _process(delta: float) -> void:
 	death_area.global_position.y = camera_bottom
-	child.global_position = child.global_position.lerp(
-		Vector2(child.global_position.x, camera_2d.global_position.y - (screen_size.y / 2)),
-		0.5
-	)
 	
 	if player.global_position.y > death_area.global_position.y:
 		die()
@@ -67,6 +66,18 @@ func _process(delta: float) -> void:
 	
 	if is_game_running and last_platform_height - abs(player.global_position.y) < screen_size.y:
 		add_platform()
+
+
+func _physics_process(delta: float) -> void:
+	child.global_position = child.global_position.lerp(
+		Vector2(
+			child.global_position.x,
+			camera_2d.global_position.y - (
+				(1 - (min(actual_score, goal_score) / goal_score)) * (screen_size.y / 2.5)
+			)
+		),
+		0.1
+	)
 
 
 func generate_platforms() -> void:

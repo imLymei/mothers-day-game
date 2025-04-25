@@ -43,7 +43,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite/Texture:scale")
+tracks/0/path = NodePath("Sprite/MomTexture:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -79,7 +79,7 @@ script = ExtResource("1_ft8w5")
 [node name="Sprite" type="Node2D" parent="."]
 unique_name_in_owner = true
 
-[node name="Texture" type="TextureRect" parent="Sprite"]
+[node name="MomTexture" type="TextureRect" parent="Sprite"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
