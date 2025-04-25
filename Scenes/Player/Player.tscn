@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bqhsyhl53a727" path="res://Resources/MotherExample.png" id="2_ft8w5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ft8w5"]
-size = Vector2(29, 8)
+size = Vector2(35, 72)
 
 [sub_resource type="Animation" id="Animation_ude3g"]
 resource_name = "FALLING"
@@ -97,7 +97,7 @@ expand_mode = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(-0.5, 33)
+position = Vector2(-3.5, 1)
 shape = SubResource("RectangleShape2D_ft8w5")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
