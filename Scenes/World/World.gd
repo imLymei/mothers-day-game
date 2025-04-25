@@ -28,6 +28,7 @@ var camera_bottom :
 @onready var high_score_label: Label = %HighScoreLabel
 @onready var platforms: Node = %Platforms
 @onready var death_area: Marker2D = %DeathArea
+@onready var child: Node2D = %Child
 
 # UI
 @onready var win_screen: CenterContainer = %WinScreen
@@ -47,6 +48,10 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	death_area.global_position.y = camera_bottom
+	child.global_position = child.global_position.lerp(
+		Vector2(child.global_position.x, camera_2d.global_position.y - (screen_size.y / 2)),
+		0.5
+	)
 	
 	if player.global_position.y > death_area.global_position.y:
 		die()
