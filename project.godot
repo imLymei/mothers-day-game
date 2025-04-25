@@ -14,7 +14,7 @@ config/name="MothersDay"
 run/main_scene="uid://2br3kn32w0pd"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 boot_splash/bg_color=Color(0, 0, 0, 1)
-config/icon="res://Resources/icon.svg"
+config/icon="res://Resources/Icons/icon.svg"
 
 [display]
 

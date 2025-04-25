@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://2br3kn32w0pd"]
+[gd_scene load_steps=13 format=3 uid="uid://2br3kn32w0pd"]
 
 [ext_resource type="PackedScene" uid="uid://dwkl5axyrlrce" path="res://Scenes/Player/Player.tscn" id="1_0nbjp"]
 [ext_resource type="Script" uid="uid://cqwxdx7ix6chh" path="res://Scenes/World/World.gd" id="1_xf6vi"]
@@ -8,7 +8,9 @@
 [ext_resource type="Theme" uid="uid://bxy7t0fosymcb" path="res://Resources/Style/ButtonStyle.tres" id="6_hveh7"]
 [ext_resource type="PackedScene" uid="uid://dolm4pb67jlub" path="res://Scenes/Platform/WeakPlatform/WeakPlatform.tscn" id="7_87yka"]
 [ext_resource type="PackedScene" uid="uid://0irr402fx0op" path="res://Scenes/Child/Child.tscn" id="7_kjd5s"]
-[ext_resource type="Texture2D" uid="uid://wnrfds27xl45" path="res://Resources/MenuIcon.png" id="8_p7pgw"]
+[ext_resource type="Texture2D" uid="uid://dee77xsmlwsbc" path="res://Resources/GrassFloor.png" id="7_kuxid"]
+[ext_resource type="Texture2D" uid="uid://wnrfds27xl45" path="res://Resources/Icons/MenuIcon.png" id="8_p7pgw"]
+[ext_resource type="Texture2D" uid="uid://bbrdnedn611et" path="res://Resources/SkyBackground.png" id="11_ng1ea"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0nbjp"]
 size = Vector2(612, 20)
@@ -19,6 +21,12 @@ static_platform_scene = ExtResource("3_ouhkt")
 moving_platform_scene = ExtResource("4_5jr8x")
 weak_platform_scene = ExtResource("7_87yka")
 goal_platform_scene = ExtResource("4_27jhl")
+metadata/_edit_vertical_guides_ = [1685.0]
+
+[node name="SkyBackground" type="Sprite2D" parent="."]
+scale = Vector2(1, 5)
+texture = ExtResource("11_ng1ea")
+offset = Vector2(0, -5120)
 
 [node name="Player" parent="." instance=ExtResource("1_0nbjp")]
 unique_name_in_owner = true
@@ -29,6 +37,10 @@ position = Vector2(5, -98)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Floor"]
 shape = SubResource("RectangleShape2D_0nbjp")
 debug_color = Color(0.986535, 0, 0.322584, 0.42)
+
+[node name="GrassFloor" type="Sprite2D" parent="Floor"]
+texture = ExtResource("7_kuxid")
+offset = Vector2(0, -100)
 
 [node name="Child" parent="." instance=ExtResource("7_kjd5s")]
 unique_name_in_owner = true

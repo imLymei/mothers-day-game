@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d4l61rcs1835h"
-path="res://.godot/imported/confetti.png-35eee30edd773f6ce96c7b27c23dd07a.ctex"
+uid="uid://wnrfds27xl45"
+path="res://.godot/imported/MenuIcon.png-98e6b5fd91e7b7f9fd10e2a2434bfce2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Resources/confetti.png"
-dest_files=["res://.godot/imported/confetti.png-35eee30edd773f6ce96c7b27c23dd07a.ctex"]
+source_file="res://Resources/Icons/MenuIcon.png"
+dest_files=["res://.godot/imported/MenuIcon.png-98e6b5fd91e7b7f9fd10e2a2434bfce2.ctex"]
 
 [params]
 
