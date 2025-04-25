@@ -21,7 +21,6 @@ static_platform_scene = ExtResource("3_ouhkt")
 moving_platform_scene = ExtResource("4_5jr8x")
 weak_platform_scene = ExtResource("7_87yka")
 goal_platform_scene = ExtResource("4_27jhl")
-metadata/_edit_vertical_guides_ = [1685.0]
 
 [node name="SkyBackground" type="Sprite2D" parent="."]
 scale = Vector2(1, 5)

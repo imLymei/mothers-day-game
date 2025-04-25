@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://cvwxjgj7fcm2i" path="res://Scenes/Player/Player.gd" id="1_ft8w5"]
 [ext_resource type="Texture2D" uid="uid://bqhsyhl53a727" path="res://Resources/MotherExample.png" id="2_ft8w5"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ft8w5"]
-radius = 37.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ft8w5"]
+size = Vector2(29, 8)
 
 [sub_resource type="Animation" id="Animation_ude3g"]
 resource_name = "FALLING"
@@ -97,7 +97,8 @@ expand_mode = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 unique_name_in_owner = true
-shape = SubResource("CircleShape2D_ft8w5")
+position = Vector2(-0.5, 33)
+shape = SubResource("RectangleShape2D_ft8w5")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
