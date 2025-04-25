@@ -8,7 +8,7 @@
 [ext_resource type="Theme" uid="uid://bxy7t0fosymcb" path="res://Resources/Style/ButtonStyle.tres" id="6_hveh7"]
 [ext_resource type="PackedScene" uid="uid://dolm4pb67jlub" path="res://Scenes/Platform/WeakPlatform/WeakPlatform.tscn" id="7_87yka"]
 [ext_resource type="PackedScene" uid="uid://0irr402fx0op" path="res://Scenes/Child/Child.tscn" id="7_kjd5s"]
-[ext_resource type="Texture2D" uid="uid://d2ycuds0puhx8" path="res://Resources/MenuIcon.png" id="8_p7pgw"]
+[ext_resource type="Texture2D" uid="uid://wnrfds27xl45" path="res://Resources/MenuIcon.png" id="8_p7pgw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0nbjp"]
 size = Vector2(612, 20)
