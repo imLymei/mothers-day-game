@@ -102,6 +102,7 @@ shape = SubResource("RectangleShape2D_ft8w5")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
+callback_mode_process = 0
 libraries = {
 &"": SubResource("AnimationLibrary_h54ih")
 }
