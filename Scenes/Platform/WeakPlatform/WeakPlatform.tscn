@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://dolm4pb67jlub"]
+
+[ext_resource type="Script" uid="uid://blj4yhb680mkp" path="res://Scenes/Platform/WeakPlatform/WeakPlatform.gd" id="1_vsip7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pl35g"]
+
+[node name="WeakPlatform" type="StaticBody2D"]
+script = ExtResource("1_vsip7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+unique_name_in_owner = true
+shape = SubResource("RectangleShape2D_pl35g")
+one_way_collision = true
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+unique_name_in_owner = true
+color = Color(0.563032, 0.000546862, 0.633315, 1)

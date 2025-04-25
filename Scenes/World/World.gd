@@ -3,7 +3,7 @@ extends Node2D
 
 const PLATFORM_SPACING = 300
 const MOVING_PLATFORM_SPAWN_RATE = 0.1
-var GOAL_PLATFORMS_DISTANCE = randi_range(100, 500)
+const GOAL_PLATFORMS_DISTANCE = 100
 
 var actual_score = 0
 var last_platform_height = 0
@@ -19,6 +19,7 @@ var camera_bottom :
 
 @export var static_platform_scene: PackedScene
 @export var moving_platform_scene: PackedScene
+@export var weak_platform_scene: PackedScene
 @export var goal_platform_scene: PackedScene
 
 @onready var camera_2d: Camera2D = %Camera2D
@@ -88,10 +89,7 @@ func add_platform() -> void:
 		
 	total_platforms += 1
 	
-	var platform_type := randi_range(0, 1)
-	var platform_scene := static_platform_scene if platform_type == 0 else moving_platform_scene
-	
-	var platform := platform_scene.instantiate()
+	var platform := get_random_platform()
 	
 	platform.global_position.y = -last_platform_height
 	
@@ -99,6 +97,19 @@ func add_platform() -> void:
 	platform.global_position.x = 0 + (random_position / 2)
 	
 	platforms.add_child(platform)
+
+
+func get_random_platform() -> StaticBody2D:
+	var platform_type := randi_range(0, 2)
+	
+	match platform_type:
+		0:
+			return static_platform_scene.instantiate()
+		1:
+			return moving_platform_scene.instantiate()
+		_: 
+			return weak_platform_scene.instantiate()
+	
 
 
 func die() -> void:

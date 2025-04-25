@@ -12,9 +12,11 @@ var current_direction := 0
 var is_touching := false
 var touch_index := -1
 var can_move := true
+var state := "IDLE"
 
 @onready var sprite: Node2D = %Sprite
 @onready var collision_shape_2d: CollisionShape2D = %CollisionShape2D
+@onready var animation_player: AnimationPlayer = %AnimationPlayer
 
 
 func _ready() -> void:
@@ -37,10 +39,21 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	handle_animations()
+	
 	if not is_on_floor():
 		velocity.y += GRAVITY * delta
-	elif can_move: 
-		velocity.y = -JUMP_FORCE
+	else:
+		var last_collision := get_last_slide_collision()
+		
+		if last_collision:
+			var collider = last_collision.get_collider()
+		
+			if collider is WeakPlatform:
+				collider.disappear()
+		
+		if can_move: 
+			velocity.y = -JUMP_FORCE
 		
 	if can_move:
 		velocity.x = SPEED * current_direction
@@ -84,3 +97,18 @@ func _input(event: InputEvent) -> void:
 				current_direction = -1
 			else:
 				current_direction = 1
+
+
+func handle_animations():
+	if velocity.y > 0:
+		if state != "FALLING":
+			state = "FALLING"
+			animation_player.play("FALLING")
+	elif velocity.y < 0:
+		if state != "JUMPING":
+			state = "JUMPING"
+			animation_player.play("JUMPING")
+	else:
+		if state != "IDLE":
+			state = "IDLE"
+			animation_player.play("RESET")
