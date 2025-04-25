@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://2br3kn32w0pd"]
+[gd_scene load_steps=11 format=3 uid="uid://2br3kn32w0pd"]
 
 [ext_resource type="PackedScene" uid="uid://dwkl5axyrlrce" path="res://Scenes/Player/Player.tscn" id="1_0nbjp"]
 [ext_resource type="Script" uid="uid://cqwxdx7ix6chh" path="res://Scenes/World/World.gd" id="1_xf6vi"]
@@ -8,6 +8,7 @@
 [ext_resource type="Theme" uid="uid://bxy7t0fosymcb" path="res://Resources/Style/ButtonStyle.tres" id="6_hveh7"]
 [ext_resource type="PackedScene" uid="uid://dolm4pb67jlub" path="res://Scenes/Platform/WeakPlatform/WeakPlatform.tscn" id="7_87yka"]
 [ext_resource type="PackedScene" uid="uid://0irr402fx0op" path="res://Scenes/Child/Child.tscn" id="7_kjd5s"]
+[ext_resource type="Texture2D" uid="uid://d2ycuds0puhx8" path="res://Resources/MenuIcon.png" id="8_p7pgw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0nbjp"]
 size = Vector2(612, 20)
@@ -85,6 +86,17 @@ size_flags_vertical = 1
 theme_override_colors/font_color = Color(0.928218, 0.848255, 7.70092e-07, 1)
 text = "[HIGH_SCORE]"
 vertical_alignment = 2
+
+[node name="Control" type="Control" parent="UI/ScreenContainer/HeaderContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MenuButton" type="Button" parent="UI/ScreenContainer/HeaderContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+icon = ExtResource("8_p7pgw")
+icon_alignment = 1
+expand_icon = true
 
 [node name="GameOverScreen" type="CenterContainer" parent="UI/ScreenContainer"]
 unique_name_in_owner = true
@@ -190,5 +202,58 @@ theme = ExtResource("6_hveh7")
 theme_override_font_sizes/font_size = 24
 text = "Jogar Novamente"
 
+[node name="MenuScreen" type="PanelContainer" parent="UI/ScreenContainer"]
+unique_name_in_owner = true
+process_mode = 2
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="UI/ScreenContainer/MenuScreen"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/ScreenContainer/MenuScreen/CenterContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 24
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/ScreenContainer/MenuScreen/CenterContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="RichTextLabel" type="RichTextLabel" parent="UI/ScreenContainer/MenuScreen/CenterContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "Jogo Pausado"
+fit_content = true
+autowrap_mode = 0
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/ScreenContainer/MenuScreen/CenterContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="ResetButton" type="Button" parent="UI/ScreenContainer/MenuScreen/CenterContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("6_hveh7")
+theme_override_font_sizes/font_size = 24
+text = "Tentar Novamente"
+
+[node name="UnpauseButton" type="Button" parent="UI/ScreenContainer/MenuScreen/CenterContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("6_hveh7")
+theme_override_font_sizes/font_size = 24
+text = "Voltar"
+
+[connection signal="pressed" from="UI/ScreenContainer/HeaderContainer/MarginContainer/HBoxContainer/MenuButton" to="." method="_on_menu_button_pressed"]
 [connection signal="pressed" from="UI/ScreenContainer/GameOverScreen/PanelContainer/MarginContainer/VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="UI/ScreenContainer/WinScreen/PanelContainer/MarginContainer/VBoxContainer/PlayAgainButton" to="." method="_on_play_again_button_pressed"]
+[connection signal="pressed" from="UI/ScreenContainer/MenuScreen/CenterContainer/MarginContainer/VBoxContainer/VBoxContainer/ResetButton" to="." method="_on_reset_button_pressed"]
+[connection signal="pressed" from="UI/ScreenContainer/MenuScreen/CenterContainer/MarginContainer/VBoxContainer/VBoxContainer/UnpauseButton" to="." method="_on_unpause_button_pressed"]

@@ -37,6 +37,7 @@ var camera_bottom :
 @onready var win_screen: CenterContainer = %WinScreen
 @onready var game_over_screen: CenterContainer = %GameOverScreen
 @onready var final_score_label: Label = %FinalScoreLabel
+@onready var menu_screen: PanelContainer = %MenuScreen
 
 
 func _ready() -> void:
@@ -173,6 +174,35 @@ func _on_goal_reached() -> void:
 
 
 func _on_play_again_button_pressed() -> void:
+	total_platforms = 0
+	
+	camera_2d.limit_bottom = 0
+	camera_2d.global_position.y = 0
+	camera_2d.position_smoothing_speed = 10
+	is_game_running = false
+	player.can_move = false
+	
+	last_platform_height = 0
+	
+	for child in platforms.get_children():
+		platforms.remove_child(child)
+	restart()
+
+
+func _on_menu_button_pressed() -> void:
+	get_tree().paused = true
+	menu_screen.show()
+
+
+func _on_unpause_button_pressed() -> void:
+	get_tree().paused = false
+	menu_screen.hide()
+
+
+func _on_reset_button_pressed() -> void:
+	get_tree().paused = false
+	menu_screen.hide()
+	
 	total_platforms = 0
 	
 	camera_2d.limit_bottom = 0

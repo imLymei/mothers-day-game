@@ -71,14 +71,21 @@ func _physics_process(delta: float) -> void:
 
 
 func _input(event: InputEvent) -> void:
+	var screen_x_center := screen_size.x / 2
+	var screen_y_center := screen_size.y / 2
+	
 	if event is InputEventScreenTouch:
 		var touch_event := event as InputEventScreenTouch
+		if touch_event.position.y < screen_y_center:
+			is_touching = false
+			touch_index = -1
+			current_direction = 0
+			return
 		
 		if touch_event.pressed:
 			is_touching = true
 			touch_index = touch_event.index
 			
-			var screen_x_center := screen_size.x / 2
 			if touch_event.position.x < screen_x_center:
 				current_direction = -1
 			else:
@@ -90,9 +97,13 @@ func _input(event: InputEvent) -> void:
 	
 	elif event is InputEventScreenDrag:
 		var drag_event := event as InputEventScreenDrag
+		if drag_event.position.y < screen_y_center:
+			is_touching = false
+			touch_index = -1
+			current_direction = 0
+			return
 		
 		if is_touching and touch_index == drag_event.index:
-			var screen_x_center := screen_size.x / 2
 			if drag_event.position.x < screen_x_center:
 				current_direction = -1
 			else:
