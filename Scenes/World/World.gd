@@ -1,18 +1,18 @@
 extends Node2D
 
 
+# Variaveis de Configuracao
 const PLATFORM_SPACING = 300
 const MOVING_PLATFORM_SPAWN_RATE = 0.1
 const GOAL_PLATFORMS_DISTANCE = 100
 
+# Variaveis de Logica
 var actual_score = 0
 var last_platform_height = 0
 var screen_size: Vector2
-
 var is_game_running := true
 var total_platforms := 0
 var goal_platform: GoalPlatform
-
 var goal_score:
 	get():
 		return (GOAL_PLATFORMS_DISTANCE + 1) * PLATFORM_SPACING
@@ -20,6 +20,7 @@ var camera_bottom :
 	get():
 		return camera_2d.global_position.y + (screen_size.y / 2)
 
+# Plataformas
 @export var static_platform_scene: PackedScene
 @export var moving_platform_scene: PackedScene
 @export var weak_platform_scene: PackedScene
@@ -33,13 +34,14 @@ var camera_bottom :
 @onready var death_area: Marker2D = %DeathArea
 @onready var child: Node2D = %Child
 
-# UI
+# Interface
 @onready var win_screen: CenterContainer = %WinScreen
 @onready var game_over_screen: CenterContainer = %GameOverScreen
 @onready var final_score_label: Label = %FinalScoreLabel
 @onready var menu_screen: PanelContainer = %MenuScreen
 
 
+# Codigo de Inicializacao
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
 	
@@ -50,6 +52,7 @@ func _ready() -> void:
 	generate_platforms()
 
 
+# Codigo de Logica Por Quadro
 func _process(delta: float) -> void:
 	death_area.global_position.y = camera_bottom
 	
@@ -69,6 +72,7 @@ func _process(delta: float) -> void:
 		add_platform()
 
 
+# Codigo de Logica Por Quadro (para Movimentacoes)
 func _physics_process(delta: float) -> void:
 	child.global_position = child.global_position.lerp(
 		Vector2(
@@ -81,6 +85,7 @@ func _physics_process(delta: float) -> void:
 	)
 
 
+# Codigo para Criar as Primeiras Plataformas
 func generate_platforms() -> void:
 	var height_goal = player.global_position.y + (screen_size.y * 1.5)
 	
@@ -88,6 +93,7 @@ func generate_platforms() -> void:
 		add_platform()
 
 
+# Codigo para Adicionar uma Plataforma
 func add_platform() -> void:
 	if total_platforms > GOAL_PLATFORMS_DISTANCE:
 		return
@@ -116,6 +122,7 @@ func add_platform() -> void:
 	platforms.add_child(platform)
 
 
+# Codigo para Pegar uma Plataforma Aleatoria
 func get_random_platform() -> StaticBody2D:
 	var platform_type := randi_range(0, 2)
 	
@@ -129,6 +136,7 @@ func get_random_platform() -> StaticBody2D:
 	
 
 
+# Codigo para Parar o Jogo
 func die() -> void:
 	game_over_screen.show()
 	
@@ -144,10 +152,9 @@ func die() -> void:
 	
 	for child in platforms.get_children():
 		platforms.remove_child(child)
-	
-	
 
 
+# Codigo para Recomecar o Jogo
 func restart() -> void:
 	game_over_screen.hide()
 	win_screen.hide()
@@ -162,15 +169,16 @@ func restart() -> void:
 	generate_platforms()
 
 
-func _on_restart_button_pressed() -> void:
-	restart()
-
-
+# Codigo para Ganhar o Jogo
 func _on_goal_reached() -> void:
 	player.can_move = false
 	camera_2d.limit_smoothed = true
 	camera_2d.limit_bottom = goal_platform.global_position.y
 	win_screen.show()
+
+
+func _on_restart_button_pressed() -> void:
+	restart()
 
 
 func _on_play_again_button_pressed() -> void:
