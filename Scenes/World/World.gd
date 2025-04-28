@@ -85,7 +85,7 @@ func _physics_process(delta: float) -> void:
 	)
 
 
-# Codigo para Criar as Primeiras Plataformas
+# Codigo Para Criar as Primeiras Plataformas
 func generate_platforms() -> void:
 	var height_goal = player.global_position.y + (screen_size.y * 1.5)
 	
@@ -93,7 +93,7 @@ func generate_platforms() -> void:
 		add_platform()
 
 
-# Codigo para Adicionar uma Plataforma
+# Codigo Para Adicionar uma Plataforma
 func add_platform() -> void:
 	if total_platforms > GOAL_PLATFORMS_DISTANCE:
 		return
@@ -122,7 +122,7 @@ func add_platform() -> void:
 	platforms.add_child(platform)
 
 
-# Codigo para Pegar uma Plataforma Aleatoria
+# Codigo Para Pegar uma Plataforma Aleatoria
 func get_random_platform() -> StaticBody2D:
 	var platform_type := randi_range(0, 2)
 	
@@ -136,7 +136,7 @@ func get_random_platform() -> StaticBody2D:
 	
 
 
-# Codigo para Parar o Jogo
+# Codigo Para Parar o Jogo
 func die() -> void:
 	game_over_screen.show()
 	
@@ -154,7 +154,7 @@ func die() -> void:
 		platforms.remove_child(child)
 
 
-# Codigo para Recomecar o Jogo
+# Codigo Para Recomecar o Jogo
 func restart() -> void:
 	game_over_screen.hide()
 	win_screen.hide()
@@ -169,7 +169,7 @@ func restart() -> void:
 	generate_platforms()
 
 
-# Codigo para Ganhar o Jogo
+# Codigo Para Ganhar o Jogo
 func _on_goal_reached() -> void:
 	player.can_move = false
 	camera_2d.limit_smoothed = true

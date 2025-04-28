@@ -2,13 +2,14 @@ class_name Player
 extends CharacterBody2D
 
 
+# Variaveis de Configuracao
 const GRAVITY = 1500
 const JUMP_FORCE = 1000
 const SPEED = 400
 
+# Variaveis de Logica
 var screen_size: Vector2
 var current_direction := 0
-
 var is_touching := false
 var touch_index := -1
 var can_move := true
@@ -19,6 +20,7 @@ var state := "IDLE"
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 
 
+# Codigo de Inicializacao
 func _ready() -> void:
 	var left_sprite := sprite.duplicate() as Node2D
 	var left_collision_shape := collision_shape_2d.duplicate() as CollisionShape2D
@@ -38,6 +40,7 @@ func _ready() -> void:
 	add_child(right_collision_shape)
 
 
+# Codigo de Logica Por Quadro (para Movimentacoes)
 func _physics_process(delta: float) -> void:
 	handle_animations()
 	
@@ -70,6 +73,7 @@ func _physics_process(delta: float) -> void:
 		global_position.x -= screen_size.x
 
 
+# Codigo de Logica Para Inputs/Toques
 func _input(event: InputEvent) -> void:
 	var screen_x_center := screen_size.x / 2
 	var screen_y_center := screen_size.y / 2
@@ -110,6 +114,7 @@ func _input(event: InputEvent) -> void:
 				current_direction = 1
 
 
+# Codigo de Logica Para Animacoes
 func handle_animations():
 	if velocity.y > 0:
 		if state != "FALLING":
