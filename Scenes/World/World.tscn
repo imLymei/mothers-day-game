@@ -43,7 +43,7 @@ offset = Vector2(0, -100)
 
 [node name="Child" parent="." instance=ExtResource("7_kjd5s")]
 unique_name_in_owner = true
-position = Vector2(186, -981)
+position = Vector2(183, -840)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 unique_name_in_owner = true
