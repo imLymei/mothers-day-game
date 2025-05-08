@@ -112,6 +112,8 @@ func _input(event: InputEvent) -> void:
 				current_direction = -1
 			else:
 				current_direction = 1
+	elif not is_touching and touch_index == -1:
+		current_direction = Input.get_axis("ui_left", "ui_right")
 
 
 # Codigo de Logica Para Animacoes
