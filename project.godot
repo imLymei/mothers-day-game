@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="MothersDay"
+config/name="Super Mãe"
 run/main_scene="uid://2br3kn32w0pd"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 boot_splash/bg_color=Color(0, 0, 0, 1)
